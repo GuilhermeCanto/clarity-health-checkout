@@ -1,0 +1,344 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* shadcn / radix base tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ── Clarity color tokens → Tailwind utilities ────────────────────
+   *
+   *  bg-brand          text-brand          border-brand
+   *  bg-page
+   *  bg-surface        (card solid surface, semi-opaque)
+   *  bg-glass          (liquid glass fill — violet-tinted alpha)
+   *  border-glass-border
+   *  text-primary-tx   text-secondary-tx
+   * ─────────────────────────────────────────────────────────────── */
+  --color-brand:         var(--brand-primary);
+  --color-page:          var(--background-page);
+  --color-surface:       var(--background-surface);
+  --color-glass:         var(--background-glass);
+  --color-glass-border:  var(--border-glass);
+  --color-primary-tx:    var(--text-primary);
+  --color-secondary-tx:  var(--text-secondary);
+}
+
+/* ── Light mode ─────────────────────────────────────────────────── */
+:root {
+  /* shadcn defaults */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Clarity color tokens (light) ─────────────────────────────── */
+  --brand-primary:       #8b5cf6;                    /* violet-500           */
+  --background-page:     #f7f7f7;                    /* surface-light        */
+  --background-surface:  rgba(255, 255, 255, 0.82);  /* card semi-opaque     */
+  --background-glass:    rgba(196, 181, 253, 0.20);  /* Violeta-Alpha.200    */
+  --border-glass:        rgba(255, 255, 255, 0.60);  /* White-Alpha.600      */
+  --text-primary:        #111827;                    /* gray-900             */
+  --text-secondary:      #6b7280;                    /* gray-500             */
+
+  /* ── Component-level tokens (light) ──────────────────────────── */
+  --c-tx1:              #080E1A;
+  --c-tx2:              #4B5563;
+  --c-tx3:              #1F2937;
+  --c-cell-bg:          rgba(255, 255, 255, 0.10);
+  --c-checkbox-bg:      #EDEBF5;
+  --c-checkbox-shadow:  inset 2px 2px 3px rgba(0, 0, 0, 0.08),
+                        inset -1px -1px 2px rgba(255, 255, 255, 0.90);
+  --c-divider:          rgba(75, 85, 99, 0.50);
+  --c-bar-bg:           rgba(139, 92, 246, 0.10);
+  --c-bar-glow:         2px 4px 8px rgba(167, 139, 250, 0.20),
+                        -2px -4px 8px rgba(167, 139, 250, 0.20);
+  --c-minus-btn:        #D4C7F6;
+  --c-header-blur:      rgba(255, 255, 255, 0.30);
+  --c-image-overlay:    none;
+  --c-sel-glow:         0px 0px 10px 5px rgba(167, 139, 250, 0.35);
+  --c-unsel-shadow:     0px 0px 10px 5px rgba(0, 0, 0, 0.05);
+  --c-tag-border:       0.5px solid #C4B5FD;
+  --c-table-border:     #C4B5FD;
+  --c-avatar-shadow:    0px 2px 9.9px 4px rgba(0, 26, 71, 0.12), -2px -3px 4px 2px rgba(255, 255, 255, 0.25);
+  --c-table-header-shadow: 0px 0px 10px 5px rgba(167, 139, 250, 0.20);
+
+  /* ── Glass variant raw values (light) ────────────────────────────
+   *
+   *  .glass         Regular surface — nav buttons, bottom bar, small cards
+   *  .glass-liquid  Violet-tinted — main content cards (from Figma Liquid Glass frame)
+   *  .glass-frosted Opaque + strong blur — modals, drawers, sticky headers
+   * ─────────────────────────────────────────────────────────────── */
+
+  /* .glass */
+  --glass-bg:            rgba(255, 255, 255, 0.82);
+  --glass-blur:          20px;
+  --glass-border:        rgba(255, 255, 255, 0.60);
+  --glass-shadow:        0 4px 24px rgba(0, 0, 0, 0.06);
+
+  /* .glass-liquid  — from Figma: blur(80px), Violeta-Alpha glow */
+  --glass-liquid-bg:     rgba(196, 181, 253, 0.20);
+  --glass-liquid-blur:   80px;
+  --glass-liquid-border: rgba(255, 255, 255, 0.60);
+  --glass-liquid-shadow: 2px 4px 8px rgba(167, 139, 250, 0.20),
+                        -2px -4px 8px rgba(167, 139, 250, 0.20);
+
+  /* .glass-frosted — from Figma: blur(25px), rgba(240,240,240,0.75) */
+  --glass-frosted-bg:     rgba(240, 240, 240, 0.75);
+  --glass-frosted-blur:   25px;
+  --glass-frosted-border: rgba(255, 255, 255, 0.50);
+  --glass-frosted-shadow: 0px 4px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* ── Dark mode ──────────────────────────────────────────────────── */
+.dark {
+  /* shadcn defaults */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+
+  /* ── Clarity color tokens (dark) ─────────────────────────────── */
+  --brand-primary:       #a78bfa;                    /* violet-400           */
+  --background-page:     #080e1a;                    /* Dark Mode base       */
+  --background-surface:  rgba(255, 255, 255, 0.05);  /* card semi-opaque     */
+  --background-glass:    rgba(196, 181, 253, 0.05);  /* Violeta-Alpha.50     */
+  --border-glass:        rgba(255, 255, 255, 0.12);  /* White-Alpha.120      */
+  --text-primary:        #f9fafb;                    /* gray-50              */
+  --text-secondary:      #9ca3af;                    /* gray-400             */
+
+  /* ── Component-level tokens (dark) ───────────────────────────── */
+  --c-tx1:              #FFFFFF;
+  --c-tx2:              #EDE9FE;
+  --c-tx3:              #FFFFFF;
+  --c-cell-bg:          rgba(255, 255, 255, 0.05);
+  --c-checkbox-bg:      #24273C;
+  --c-checkbox-shadow:  inset 0px 0px 5px 1px rgba(0, 0, 0, 0.30);
+  --c-divider:          rgba(196, 181, 253, 0.50);
+  --c-bar-bg:           rgba(255, 255, 255, 0.05);
+  --c-bar-glow:         2px 4px 8px rgba(8, 14, 26, 0.20),
+                        -2px -4px 8px rgba(8, 14, 26, 0.20);
+  --c-minus-btn:        rgba(255, 255, 255, 0.05);
+  --c-header-blur:      rgba(8, 14, 26, 0.60);
+  --c-image-overlay:    none;
+  --c-sel-glow:         0px 0px 8px 3px rgba(139, 92, 246, 0.18);
+  --c-unsel-shadow:     0px 0px 6px 2px rgba(0, 0, 0, 0.12);
+  --c-tag-border:       none;
+  --c-table-border:     rgba(196, 181, 253, 0.20);
+  --c-avatar-shadow:    0px 1px 4px 1px rgba(0, 0, 0, 0.30);
+  --c-table-header-shadow: none;
+
+  /* ── Glass variant raw values (dark) ─────────────────────────── */
+
+  /* .glass */
+  --glass-bg:            rgba(255, 255, 255, 0.05);
+  --glass-blur:          20px;
+  --glass-border:        rgba(255, 255, 255, 0.12);
+  --glass-shadow:        0 4px 24px rgba(0, 0, 0, 0.40);
+
+  /* .glass-liquid */
+  --glass-liquid-bg:     rgba(196, 181, 253, 0.05);
+  --glass-liquid-blur:   80px;
+  --glass-liquid-border: rgba(255, 255, 255, 0.10);
+  --glass-liquid-shadow: 2px 4px 8px rgba(167, 139, 250, 0.10),
+                        -2px -4px 8px rgba(167, 139, 250, 0.10);
+
+  /* .glass-frosted */
+  --glass-frosted-bg:     rgba(255, 255, 255, 0.07);
+  --glass-frosted-blur:   25px;
+  --glass-frosted-border: rgba(255, 255, 255, 0.15);
+  --glass-frosted-shadow: 0px 4px 30px rgba(0, 0, 0, 0.50);
+}
+
+/* ── Base ───────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ── Glass surface utilities ────────────────────────────────────────
+ *
+ *  Three named variants, each a complete compound of:
+ *    background · backdrop-filter · border · box-shadow
+ *
+ *  Usage:
+ *    <div className="glass rounded-2xl p-4">          regular surface
+ *    <div className="glass-liquid rounded-[28px]">    violet liquid glass
+ *    <div className="glass-frosted rounded-xl">       opaque frosted panel
+ *
+ *  Dark mode is automatic — CSS variables flip in .dark {}
+ *  Override individual properties freely with Tailwind utilities.
+ * ─────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Typography scale from Figma */
+  .text-h6 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-liquid {
+    background: var(--glass-liquid-bg);
+    backdrop-filter: blur(var(--glass-liquid-blur));
+    -webkit-backdrop-filter: blur(var(--glass-liquid-blur));
+    border: 1px solid var(--glass-liquid-border);
+    box-shadow: var(--glass-liquid-shadow);
+  }
+
+  .glass-frosted {
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border: 1px solid var(--glass-frosted-border);
+    box-shadow: var(--glass-frosted-shadow);
+  }
+
+  /* Gradient rim border — the "glass edge highlight" from Figma.
+     Apply via a pseudo-element wrapper using .glass-rim class, or
+     use border-image inline for elements that don't need overflow:hidden. */
+  .glass-rim {
+    position: relative;
+  }
+  .glass-rim::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      146deg,
+      rgba(255, 255, 255, 1) 3%,
+      rgba(255, 255, 255, 0) 57%,
+      rgba(255, 255, 255, 0.77) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Soften the rim in dark mode — full white is too harsh */
+  .dark .glass-rim::before {
+    background: linear-gradient(
+      146deg,
+      rgba(255, 255, 255, 0.18) 3%,
+      rgba(255, 255, 255, 0) 57%,
+      rgba(255, 255, 255, 0.10) 100%
+    );
+  }
+}
