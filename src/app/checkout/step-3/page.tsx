@@ -2,17 +2,16 @@
 
 import { useState } from "react"
 
-import { ShippingAddressStep } from "@/components/checkout/shipping-address-step"
+import { SummaryPaymentStep } from "@/components/checkout/summary-payment-step"
 
-export default function ShippingAddressPage() {
+export default function Step3Page() {
   const [isDark, setIsDark] = useState(false)
 
   return (
-    <ShippingAddressStep
+    <SummaryPaymentStep
       dark={isDark}
       routePrefix="/checkout"
       onToggleTheme={() => setIsDark((v) => !v)}
-      useStep3Glass
     />
   )
 }

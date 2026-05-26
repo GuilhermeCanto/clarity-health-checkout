@@ -9,6 +9,7 @@ import { z } from "zod"
 import { useRouter } from "next/navigation"
 
 import { StatusBar } from "@/components/checkout/status-bar"
+import { useHeaderScrolled } from "@/components/checkout/use-header-scrolled"
 import { FooterCta } from "@/components/checkout/footer-cta"
 import {
   CurrentLocationCard,
@@ -51,16 +52,21 @@ interface ShippingAddressStepProps {
   dark?: boolean
   onToggleTheme?: () => void
   routePrefix: string
+  useStep3Glass?: boolean
 }
 
 export function ShippingAddressStep({
   dark = false,
   onToggleTheme,
   routePrefix,
+  useStep3Glass = false,
 }: ShippingAddressStepProps) {
   const router = useRouter()
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
+  const headerScrolled = useHeaderScrolled()
+  const archGlassInset = "0px"
+  const archGlassInnerInset = "2px"
 
   const {
     register,
@@ -86,16 +92,26 @@ export function ShippingAddressStep({
           className="pointer-events-auto"
           style={{
             background: "var(--c-header-blur)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
-            maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            WebkitMaskImage: headerScrolled ? "none" : "linear-gradient(to bottom, black 60%, transparent 100%)",
+            maskImage: headerScrolled ? "none" : "linear-gradient(to bottom, black 60%, transparent 100%)",
           }}
         >
           <StatusBar />
         </div>
 
-        <div className="flex items-center justify-between px-4 pointer-events-auto">
+        <div
+          className="pointer-events-auto px-4 transition-all duration-200"
+          style={{
+            background: headerScrolled ? "var(--c-header-blur)" : "transparent",
+            backdropFilter: headerScrolled ? "blur(5px)" : "none",
+            WebkitBackdropFilter: headerScrolled ? "blur(5px)" : "none",
+            WebkitMaskImage: headerScrolled ? "linear-gradient(to bottom, black 0%, black 62%, transparent 100%)" : "none",
+            maskImage: headerScrolled ? "linear-gradient(to bottom, black 0%, black 62%, transparent 100%)" : "none",
+          }}
+        >
+          <div className="flex items-center justify-between">
           {/* Back */}
           <motion.button
             initial={{ opacity: 0, x: -12 }}
@@ -151,6 +167,7 @@ export function ShippingAddressStep({
           ) : (
             <div className="size-12" />
           )}
+          </div>
         </div>
       </div>
 
@@ -166,14 +183,62 @@ export function ShippingAddressStep({
           <div
             className="absolute inset-0"
             style={{
+              inset: useStep3Glass ? archGlassInset : undefined,
               transform: "rotate(180deg)",
-              clipPath: ARCH_CLIP_PATH,
-              background: "var(--glass-liquid-bg)",
-              backdropFilter: "blur(var(--glass-liquid-blur))",
-              WebkitBackdropFilter: "blur(var(--glass-liquid-blur))",
-              boxShadow: "var(--glass-liquid-shadow)",
+              clipPath: useStep3Glass
+                ? "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')"
+                : ARCH_CLIP_PATH,
+              background: useStep3Glass
+                ? dark
+                  ? "linear-gradient(315deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.08) 22%, rgba(255,255,255,0.05) 56%, rgba(255,255,255,0.025) 100%)"
+                  : "linear-gradient(315deg, rgba(196,181,253,0.01), rgba(196,181,253,0.24))"
+                : "var(--glass-liquid-bg)",
+              boxShadow: useStep3Glass
+                ? dark
+                  ? "0 10px 30px rgba(0,0,0,0.24)"
+                  : "0 12px 28px rgba(15,23,42,0.10)"
+                : "var(--glass-liquid-shadow)",
             }}
           />
+          {useStep3Glass ? (
+            <>
+              <div
+                className="absolute inset-0"
+                style={{
+                  inset: archGlassInnerInset,
+                  transform: "rotate(180deg)",
+                  clipPath: "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')",
+                  background: dark
+                    ? "linear-gradient(315deg, rgba(214,220,230,0.004), rgba(248,250,252,0.00075))"
+                    : "linear-gradient(315deg, rgba(196,181,253,0.12), rgba(196,181,253,0.08))",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                }}
+              />
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  inset: archGlassInnerInset,
+                  transform: "rotate(180deg)",
+                  clipPath: "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')",
+                  backdropFilter: "blur(1px)",
+                  WebkitBackdropFilter: "blur(1px)",
+                }}
+              />
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  inset: archGlassInnerInset,
+                  transform: "rotate(180deg)",
+                  clipPath: "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')",
+                  background: dark
+                    ? "linear-gradient(315deg, rgba(214,220,230,0.005) 0%, rgba(248,250,252,0.00075) 42%, transparent 100%)"
+                    : "linear-gradient(315deg, rgba(196,181,253,0.16) 0%, rgba(196,181,253,0.08) 42%, transparent 100%)",
+                  opacity: dark ? 0.04 : 0.78,
+                }}
+              />
+            </>
+          ) : null}
 
           <div className="relative px-5 pb-16" style={{ paddingTop: "96px" }}>
 
@@ -193,6 +258,7 @@ export function ShippingAddressStep({
                         address="555 Madison Avenue,"
                         cityState="New York, NY  -  United States"
                         dark={dark}
+                        variant={useStep3Glass ? "step3Glass" : "default"}
                       />
                     </motion.div>
 
@@ -230,10 +296,12 @@ export function ShippingAddressStep({
                     <SavedAddressItem
                       label={addr.label}
                       address={addr.address}
+                      dark={dark}
                       cityState={addr.cityState}
                       selected={selectedId === addr.id}
                       onClick={() => setSelectedId(selectedId === addr.id ? null : addr.id)}
                       onMenu={() => {}}
+                      variant={useStep3Glass ? "step3Glass" : "default"}
                     />
                   </motion.div>
                 ))}
@@ -347,10 +415,10 @@ export function ShippingAddressStep({
       {/* ── Price summary (plain background below the arch card) ─── */}
       <div className="px-5 mt-6 space-y-4 pb-40">
         <motion.div custom={6} variants={fadeUp} initial="hidden" animate="visible">
-          <PriceSummaryRow label="Subtotal:" value="$199" />
+          <PriceSummaryRow label="Subtotal:" value="$199" dark={dark} variant={useStep3Glass ? "step3Glass" : "default"} />
         </motion.div>
         <motion.div custom={7} variants={fadeUp} initial="hidden" animate="visible">
-          <PriceSummaryRow label="Shipping:" value="$7" />
+          <PriceSummaryRow label="Shipping:" value="$7" dark={dark} variant={useStep3Glass ? "step3Glass" : "default"} />
         </motion.div>
         <motion.div
           custom={8}
@@ -360,7 +428,7 @@ export function ShippingAddressStep({
           style={{ height: "1px", background: "var(--c-divider)" }}
         />
         <motion.div custom={9} variants={fadeUp} initial="hidden" animate="visible">
-          <PriceSummaryRow label="Total Cost:" value="$206" emphasized />
+          <PriceSummaryRow label="Total Cost:" value="$206" emphasized dark={dark} variant={useStep3Glass ? "step3Glass" : "default"} />
         </motion.div>
       </div>
 

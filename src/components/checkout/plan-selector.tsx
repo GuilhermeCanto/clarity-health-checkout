@@ -15,11 +15,12 @@ type Plan = {
 
 interface PlanSelectorProps {
   plans: readonly Plan[]
-  selected: string
+  selected: string | null
   onChange: (id: string) => void
+  useGlassCheckbox?: boolean
 }
 
-export function PlanSelector({ plans, selected, onChange }: PlanSelectorProps) {
+export function PlanSelector({ plans, selected, onChange, useGlassCheckbox = false }: PlanSelectorProps) {
   return (
     <div>
       <SectionDivider label="Recommended" />
@@ -48,12 +49,25 @@ export function PlanSelector({ plans, selected, onChange }: PlanSelectorProps) {
               <div
                 className="size-[30px] rounded-[8px] flex-shrink-0 flex items-center justify-center glass-rim"
                 style={{
-                  background: isSelected ? "#DDD6FE" : "var(--c-checkbox-bg)",
-                  boxShadow: isSelected ? "none" : "var(--c-checkbox-shadow)",
+                  background: isSelected
+                    ? "var(--c-glass-checkbox-selected-bg)"
+                    : useGlassCheckbox
+                      ? "var(--c-glass-checkbox-bg)"
+                      : "var(--c-checkbox-bg)",
+                  boxShadow: isSelected
+                    ? "none"
+                    : useGlassCheckbox
+                      ? "var(--c-glass-checkbox-shadow)"
+                      : "var(--c-checkbox-shadow)",
+                  border: useGlassCheckbox ? "var(--c-glass-checkbox-border)" : undefined,
                 }}
               >
                 {isSelected && (
-                  <Check className="size-3.5 text-brand" strokeWidth={3} />
+                  <Check
+                    className="size-3.5"
+                    style={{ color: "var(--c-glass-checkbox-selected-icon)" }}
+                    strokeWidth={3}
+                  />
                 )}
               </div>
 

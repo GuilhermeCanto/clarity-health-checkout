@@ -9,84 +9,45 @@ interface SpecsTableProps {
 
 export function SpecsTable({ specs }: SpecsTableProps) {
   return (
-    <div
-      className="w-full overflow-hidden"
-      style={{ border: "1px solid var(--c-table-border)", borderRadius: "12px" }}
-    >
-      {/* Header */}
+    <div className="w-full overflow-hidden rounded-[12px]" style={{ border: "1px solid var(--c-table-border)" }}>
       <div
-        className="flex items-center"
+        className="glass-liquid flex items-center overflow-hidden rounded-t-[12px]"
         style={{
-          background: "rgba(139, 92, 246, 0.10)",
-          boxShadow: "var(--c-table-header-shadow)",
-          borderRadius: "12px 12px 0px 0px",
           height: "32px",
+          boxShadow: "var(--c-table-header-shadow)",
+          borderBottom: "1px solid var(--c-table-border)",
         }}
       >
-        <div className="flex-1 flex items-center px-3" style={{ height: "32px" }}>
-          <span style={{ fontSize: "14px", fontWeight: 600, lineHeight: "20px", color: "var(--c-tx1)" }}>
+        <div className="flex-1 px-3">
+          <span style={{ color: "var(--c-tx1)", fontSize: "14px", fontWeight: 600, lineHeight: "20px" }}>
             Specification
           </span>
         </div>
         <div style={{ width: "1px", height: "32px", background: "var(--c-table-border)" }} />
-        <div className="flex-1 flex items-center px-3" style={{ height: "32px" }}>
-          <span style={{ fontSize: "14px", fontWeight: 600, lineHeight: "20px", color: "var(--c-tx1)" }}>
+        <div className="flex-1 px-3">
+          <span style={{ color: "var(--c-tx1)", fontSize: "14px", fontWeight: 600, lineHeight: "20px" }}>
             Details
           </span>
         </div>
       </div>
 
-      {/* Rows */}
-      {specs.map((row) => (
-        <div
-          key={row.specification}
-          className="flex items-center"
-          style={{ borderTop: "1px solid var(--c-table-border)" }}
-        >
-          {/* Spec cell */}
-          <div
-            className="flex-1 flex items-center px-3"
-            style={{ height: "44px", background: "var(--c-cell-bg)" }}
-          >
-            <span
-              className="inline-block px-2"
-              style={{
-                border: "var(--c-tag-border)",
-                borderRadius: "4px",
-                fontSize: "12px",
-                fontWeight: 500,
-                lineHeight: "20px",
-                color: "var(--c-tx2)",
-              }}
-            >
-              {row.specification}
-            </span>
+      <div className="space-y-0">
+        {specs.map((row) => (
+          <div key={row.specification} className="flex items-center" style={{ borderTop: "1px solid var(--c-table-border)" }}>
+            <div className="flex-1 px-3 py-3">
+              <span style={{ color: "var(--c-tx2)", fontSize: "12px", fontWeight: 500, lineHeight: "16px" }}>
+                {row.specification}
+              </span>
+            </div>
+            <div style={{ width: "1px", alignSelf: "stretch", background: "var(--c-table-border)" }} />
+            <div className="flex-1 px-3 py-3">
+              <span style={{ color: "var(--c-tx1)", fontSize: "12px", fontWeight: 500, lineHeight: "16px" }}>
+                {row.details}
+              </span>
+            </div>
           </div>
-
-          {/* Vertical divider */}
-          <div style={{ width: "1px", height: "44px", background: "var(--c-table-border)", flexShrink: 0 }} />
-
-          {/* Details cell */}
-          <div
-            className="flex-1 flex items-center px-3"
-            style={{ height: "44px", background: "var(--c-cell-bg)" }}
-          >
-            <span
-              className="inline-block px-2"
-              style={{
-                border: "var(--c-tag-border)",
-                borderRadius: "4px",
-                fontSize: "11px",
-                fontWeight: 500,
-                lineHeight: "16px",
-                color: "var(--c-tx2)",
-              }}
-            >
-              {row.details}
-            </span>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }
