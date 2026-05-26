@@ -242,7 +242,7 @@ function OrderSummaryCard({ dark }: { dark: boolean }) {
   )
 }
 
-function SectionButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
+function SectionButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void; dark?: boolean }) {
   return (
     <button
       onClick={onClick}
