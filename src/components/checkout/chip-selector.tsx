@@ -30,7 +30,7 @@ export function ChipSelector({ label, options, selected, onChange }: ChipSelecto
               style={
                 isSelected
                   ? {
-                      background: "#8B5CF6",
+                      background: "var(--brand-primary)",
                       boxShadow: "var(--c-sel-glow)",
                     }
                   : {

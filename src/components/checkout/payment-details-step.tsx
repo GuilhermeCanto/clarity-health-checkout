@@ -31,7 +31,7 @@ function CreditCardPreview({ dark }: { dark: boolean }) {
       style={{
         background: dark
           ? "linear-gradient(125.9deg, rgba(255,255,255,0.51) 3.5%, rgba(255,255,255,0) 111.7%)"
-          : "linear-gradient(125.9deg, #c4b5fd 3.5%, #8b5cf6 111.7%)",
+          : "linear-gradient(125.9deg, rgb(var(--theme-accent-soft-rgb) / 1) 3.5%, var(--brand-primary) 111.7%)",
         border: "1.758px solid rgba(255,255,255,0.5)",
         backdropFilter: dark ? "blur(10.253px)" : "none",
         WebkitBackdropFilter: dark ? "blur(10.253px)" : "none",
@@ -290,7 +290,7 @@ export function PaymentDetailsStep({ dark = false, routePrefix }: PaymentDetails
       {/* Swipe indicator */}
       <div
         className="fixed bottom-2 left-1/2 z-50 h-1 w-9 -translate-x-1/2 rounded-full"
-        style={{ background: "rgba(196,181,253,0.5)" }}
+        style={{ background: "rgb(var(--theme-accent-soft-rgb) / 0.5)" }}
       />
     </div>
   )

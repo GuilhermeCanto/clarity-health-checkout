@@ -43,7 +43,7 @@ export function FooterCta({ hidden, icon, label, onClick }: FooterCtaProps) {
             onClick={onClick}
             className="flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-5 transition-all"
             style={{
-              background: "#8B5CF6",
+              background: "var(--brand-primary)",
               border: "var(--c-cta-border)",
               boxShadow: "var(--c-cta-inner-shadow)",
             }}

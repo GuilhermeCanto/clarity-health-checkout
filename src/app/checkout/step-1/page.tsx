@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { ChevronLeft, ShieldCheck, Sun, Moon } from "lucide-react"
 import { useRouter } from "next/navigation"
 
+import { useCheckoutTheme } from "@/components/checkout/checkout-theme-provider"
 import { StatusBar } from "@/components/checkout/status-bar"
 import { PlanSelector } from "@/components/checkout/plan-selector"
 import { ChipSelector } from "@/components/checkout/chip-selector"
@@ -46,7 +47,7 @@ export default function Step1Page() {
   const [selectedDosage, setSelectedDosage] = useState("1-4 weeks")
   const [selectedStrength, setSelectedStrength] = useState("0.25mg")
   const [quantity, setQuantity] = useState(1)
-  const [isDark, setIsDark] = useState(false)
+  const { dark: isDark, toggleDark } = useCheckoutTheme()
   const headerScrolled = useHeaderScrolled()
   const archGlassInset = "0px"
   const archGlassInnerInset = "2px"
@@ -111,7 +112,7 @@ export default function Step1Page() {
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setIsDark((v) => !v)}
+            onClick={toggleDark}
             className="size-12 rounded-full glass-rim flex items-center justify-center"
             style={{
               background: "rgba(255, 255, 255, 0.10)",
@@ -160,7 +161,7 @@ export default function Step1Page() {
               clipPath: STEP3_ARCH_CLIP_PATH,
               background: isDark
                 ? "linear-gradient(135deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.08) 22%, rgba(255,255,255,0.05) 56%, rgba(255,255,255,0.025) 100%)"
-                : "linear-gradient(135deg, rgba(196,181,253,0.01), rgba(196,181,253,0.24))",
+                : "linear-gradient(135deg, rgb(var(--theme-accent-soft-rgb) / 0.01), rgb(var(--theme-accent-soft-rgb) / 0.24))",
               boxShadow: isDark
                 ? "0 10px 30px rgba(0,0,0,0.24)"
                 : "0 12px 28px rgba(15,23,42,0.10)",
@@ -173,7 +174,7 @@ export default function Step1Page() {
               clipPath: STEP3_ARCH_CLIP_PATH,
               background: isDark
                 ? "linear-gradient(135deg, rgba(214,220,230,0.004), rgba(248,250,252,0.00075))"
-                : "linear-gradient(135deg, rgba(196,181,253,0.12), rgba(196,181,253,0.08))",
+                : "linear-gradient(135deg, rgb(var(--theme-accent-soft-rgb) / 0.12), rgb(var(--theme-accent-soft-rgb) / 0.08))",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
             }}
@@ -194,7 +195,7 @@ export default function Step1Page() {
               clipPath: STEP3_ARCH_CLIP_PATH,
               background: isDark
                 ? "linear-gradient(135deg, rgba(214,220,230,0.005) 0%, rgba(248,250,252,0.00075) 42%, transparent 100%)"
-                : "linear-gradient(135deg, rgba(196,181,253,0.16) 0%, rgba(196,181,253,0.08) 42%, transparent 100%)",
+                : "linear-gradient(135deg, rgb(var(--theme-accent-soft-rgb) / 0.16) 0%, rgb(var(--theme-accent-soft-rgb) / 0.08) 42%, transparent 100%)",
               opacity: isDark ? 0.04 : 0.78,
             }}
           />
@@ -204,7 +205,7 @@ export default function Step1Page() {
 
             {/* Pill indicator */}
             <div className="flex justify-center mb-1">
-              <div className="w-9 h-1 rounded-full" style={{ background: "rgba(196, 181, 253, 0.5)" }} />
+              <div className="w-9 h-1 rounded-full" style={{ background: "rgb(var(--theme-accent-soft-rgb) / 0.5)" }} />
             </div>
 
             {/* Category badge */}

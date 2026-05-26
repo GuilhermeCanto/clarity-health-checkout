@@ -36,7 +36,7 @@ export function PlanSelector({ plans, selected, onChange, useGlassCheckbox = fal
               style={
                 isSelected
                   ? {
-                      background: "#8B5CF6",
+                      background: "var(--brand-primary)",
                       boxShadow: "var(--c-sel-glow)",
                     }
                   : {
