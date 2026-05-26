@@ -119,6 +119,22 @@
   --c-checkbox-bg:      #EDEBF5;
   --c-checkbox-shadow:  inset 2px 2px 3px rgba(0, 0, 0, 0.08),
                         inset -1px -1px 2px rgba(255, 255, 255, 0.90);
+  --c-glass-checkbox-bg:          rgba(196, 181, 253, 0.08);
+  --c-glass-checkbox-border:      1px solid rgba(196, 181, 253, 0.16);
+  --c-glass-checkbox-shadow:      0 2px 8px rgba(139, 92, 246, 0.18);
+  --c-glass-checkbox-selected-bg: #8B5CF6;
+  --c-glass-checkbox-selected-icon: #FFFFFF;
+  --c-doctor-glass-bg:            rgba(196, 181, 253, 0.10);
+  --c-doctor-glass-border:        1px solid rgba(196, 181, 253, 0.14);
+  --c-doctor-glass-shadow:        0 8px 22px rgba(15,23,42,0.07), 0 2px 7px rgba(196,181,253,0.08);
+  --c-bar-quantity-bg:            rgba(227, 219, 247, 0.82);
+  --c-cta-shell-bg:               rgba(255, 255, 255, 0.14);
+  --c-cta-shell-filter:           blur(80px);
+  --c-cta-shell-shadow:           var(--c-bar-glow);
+  --c-cta-shell-border:           1px solid rgba(255, 255, 255, 0.34);
+  --c-cta-border:                 1px solid rgba(255, 255, 255, 0.62);
+  --c-cta-inner-shadow:           0px 0px 2px 2px rgba(120, 120, 120, 0.18),
+                                  inset 2px 2px 1px 0px rgba(255, 255, 255, 0.32);
   --c-divider:          rgba(75, 85, 99, 0.50);
   --c-bar-bg:           rgba(139, 92, 246, 0.10);
   --c-bar-glow:         2px 4px 8px rgba(167, 139, 250, 0.20),
@@ -211,6 +227,21 @@
   --c-cell-bg:          rgba(255, 255, 255, 0.05);
   --c-checkbox-bg:      #24273C;
   --c-checkbox-shadow:  inset 0px 0px 5px 1px rgba(0, 0, 0, 0.30);
+  --c-glass-checkbox-bg:          rgba(255, 255, 255, 0.08);
+  --c-glass-checkbox-border:      1px solid rgba(255, 255, 255, 0.10);
+  --c-glass-checkbox-shadow:      0 2px 8px rgba(139, 92, 246, 0.12);
+  --c-glass-checkbox-selected-bg: #8B5CF6;
+  --c-glass-checkbox-selected-icon: #FFFFFF;
+  --c-doctor-glass-bg:            rgba(255, 255, 255, 0.015);
+  --c-doctor-glass-border:        1px solid rgba(255, 255, 255, 0.10);
+  --c-doctor-glass-shadow:        0 6px 18px rgba(0,0,0,0.10);
+  --c-bar-quantity-bg:            rgba(34, 39, 57, 0.92);
+  --c-cta-shell-bg:               rgba(26, 31, 46, 0.98);
+  --c-cta-shell-filter:           blur(14px);
+  --c-cta-shell-shadow:           0 10px 22px rgba(0, 0, 0, 0.22);
+  --c-cta-shell-border:           1px solid rgba(255, 255, 255, 0.02);
+  --c-cta-border:                 1px solid rgba(255, 255, 255, 0.015);
+  --c-cta-inner-shadow:           inset 0 1px 0 rgba(255, 255, 255, 0.02);
   --c-divider:          rgba(196, 181, 253, 0.50);
   --c-bar-bg:           rgba(255, 255, 255, 0.05);
   --c-bar-glow:         2px 4px 8px rgba(8, 14, 26, 0.20),
@@ -341,4 +372,55 @@
       rgba(255, 255, 255, 0.10) 100%
     );
   }
+
+  /* ── Liquid-glass button (David UI / Creative Tim pattern) ─────────
+   *
+   *  Extracted from the David UI Liquid Glass component.
+   *  Provides the double pseudo-element shimmer + inner-highlight shadow.
+   *  Usage:  <button className="btn-liquid-glass rounded-full …">
+   * ─────────────────────────────────────────────────────────────── */
+  .btn-liquid-glass {
+    position: relative;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      0 0 9px rgba(0, 0, 0, 0.20),
+      0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: background 300ms ease, box-shadow 300ms ease;
+  }
+  .btn-liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.60),
+      transparent,
+      transparent
+    );
+    opacity: 0.70;
+    pointer-events: none;
+  }
+  .btn-liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      to top left,
+      rgba(255, 255, 255, 0.30),
+      transparent,
+      transparent
+    );
+    opacity: 0.50;
+    pointer-events: none;
+  }
+  .btn-liquid-glass:hover {
+    background: rgba(255, 255, 255, 0.30);
+  }
+
 }

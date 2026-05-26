@@ -10,9 +10,6 @@ interface FooterCtaProps {
   onClick: () => void
 }
 
-const innerBtnShadow =
-  "0px 0px 2px 2px rgba(120, 120, 120, 0.25), inset 2px 2px 1px 0px rgba(255, 255, 255, 0.45)"
-
 export function FooterCta({ hidden, icon, label, onClick }: FooterCtaProps) {
   return (
     <motion.div
@@ -30,23 +27,25 @@ export function FooterCta({ hidden, icon, label, onClick }: FooterCtaProps) {
         }}
       >
         <div
-          className="glass-rim"
+          className="relative"
           style={{
             padding: "4px",
             borderRadius: "9999px",
-            background: "var(--c-cell-bg)",
-            boxShadow: "var(--c-bar-glow)",
-            backdropFilter: "blur(80px)",
-            WebkitBackdropFilter: "blur(80px)",
+            background: "var(--c-cta-shell-bg)",
+            border: "var(--c-cta-shell-border)",
+            boxShadow: "var(--c-cta-shell-shadow)",
+            backdropFilter: "var(--c-cta-shell-filter)",
+            WebkitBackdropFilter: "var(--c-cta-shell-filter)",
           }}
         >
           <motion.button
             whileTap={{ scale: 0.98 }}
             onClick={onClick}
-            className="glass-rim flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-5 transition-all"
+            className="flex h-[52px] w-full items-center justify-center gap-3 rounded-full px-5 transition-all"
             style={{
               background: "#8B5CF6",
-              boxShadow: innerBtnShadow,
+              border: "var(--c-cta-border)",
+              boxShadow: "var(--c-cta-inner-shadow)",
             }}
           >
             {icon}

@@ -37,6 +37,49 @@ export function SectionTitleRow({ actionIcon, actionLabel, onAction, title }: Se
   )
 }
 
+function GlassSurface({
+  dark,
+  radius,
+  padding,
+  className = "",
+  children,
+}: {
+  dark: boolean
+  radius: number
+  padding: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div
+      className={`relative overflow-hidden ${className}`.trim()}
+      style={{
+        borderRadius: `${radius}px`,
+        padding,
+        background: dark ? "rgba(255,255,255,0.015)" : "rgba(196,181,253,0.10)",
+        border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgba(196,181,253,0.14)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
+        boxShadow: dark
+          ? "0 6px 18px rgba(0,0,0,0.10)"
+          : "0 8px 22px rgba(15,23,42,0.07), 0 2px 7px rgba(196,181,253,0.08)",
+      }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: `${radius}px`,
+          background: dark
+            ? "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 44%, transparent 100%)"
+            : "linear-gradient(135deg, rgba(196,181,253,0.36) 0%, rgba(196,181,253,0.14) 44%, transparent 100%)",
+          opacity: dark ? 0.55 : 0.78,
+        }}
+      />
+      <div className="relative">{children}</div>
+    </div>
+  )
+}
+
 interface AddressCardProps {
   address: string
   cityStateZip: string
@@ -302,9 +345,83 @@ interface CurrentLocationCardProps {
   address: string
   cityState: string
   dark?: boolean
+  variant?: "default" | "step3Glass"
 }
 
-export function CurrentLocationCard({ address, cityState, dark }: CurrentLocationCardProps) {
+export function CurrentLocationCard({ address, cityState, dark, variant = "default" }: CurrentLocationCardProps) {
+  if (variant === "step3Glass") {
+    return (
+      <GlassSurface dark={dark ?? false} radius={12} padding="12px 24px" className="w-full">
+        <div className="flex items-center gap-[10px]">
+          <div className="relative shrink-0 size-[34px]">
+            <div
+              className="absolute inset-0 rounded-[4px]"
+              style={{
+                background: "#8b5cf6",
+                boxShadow: dark
+                  ? "0px 0px 6px 2px rgba(196,181,253,0.14)"
+                  : "0px 0px 6px 2px rgba(196,181,253,0.28)",
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Home className="size-[15px] text-white" strokeWidth={2} />
+            </div>
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-[10px]">
+              <span
+                style={{
+                  color: dark ? "#ffffff" : "#080e1a",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  lineHeight: "20px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Current Location
+              </span>
+              <span
+                className="flex h-[16px] shrink-0 items-center justify-center rounded-full border border-white px-2"
+                style={{
+                  background: "#ede9fe",
+                  color: "#8b5cf6",
+                  fontSize: "9px",
+                  fontWeight: 600,
+                  lineHeight: "9px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Active
+              </span>
+            </div>
+            <p
+              className="mt-[2px]"
+              style={{
+                color: dark ? "#ffffff" : "#9ca3af",
+                fontSize: "12px",
+                fontWeight: 400,
+                lineHeight: "16px",
+              }}
+            >
+              {address}
+            </p>
+            <p
+              style={{
+                color: dark ? "#ffffff" : "#9ca3af",
+                fontSize: "12px",
+                fontWeight: 400,
+                lineHeight: "16px",
+              }}
+            >
+              {cityState}
+            </p>
+          </div>
+        </div>
+      </GlassSurface>
+    )
+  }
+
   return (
     <div
       className="glass-rim flex items-center justify-between gap-4 rounded-2xl px-4 py-4"
@@ -385,14 +502,77 @@ export function CurrentLocationCard({ address, cityState, dark }: CurrentLocatio
 
 interface SavedAddressItemProps {
   address: string
+  dark?: boolean
   cityState: string
   label: string
   onClick: () => void
   onMenu: (e: React.MouseEvent) => void
   selected: boolean
+  variant?: "default" | "step3Glass"
 }
 
-export function SavedAddressItem({ address, cityState, label, onClick, onMenu, selected }: SavedAddressItemProps) {
+export function SavedAddressItem({
+  address,
+  dark = false,
+  cityState,
+  label,
+  onClick,
+  onMenu,
+  selected,
+  variant = "default",
+}: SavedAddressItemProps) {
+  const useStep3Glass = variant === "step3Glass"
+
+  if (useStep3Glass) {
+    return (
+      <div className="w-full cursor-pointer" onClick={onClick}>
+        <GlassSurface dark={dark} radius={12} padding="14px 16px" className="w-full">
+          <div className="flex items-center gap-3">
+            <div
+              className="glass-rim shrink-0 rounded-[8px] flex items-center justify-center"
+              style={{
+                width: 30,
+                height: 30,
+                background: selected ? "#DDD6FE" : dark ? "rgba(255,255,255,0.08)" : "rgba(196,181,253,0.08)",
+                boxShadow: selected ? "none" : "0 2px 8px rgba(139,92,246,0.18)",
+                border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgba(196,181,253,0.16)",
+              }}
+            >
+              {selected && <Check className="size-3.5 text-brand" strokeWidth={3} />}
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <div className="mb-1.5 flex items-center gap-2">
+                <span className="rounded-full px-2 py-0.5" style={{ background: "#ede9fe", color: "#8B5CF6", fontSize: "11px", fontWeight: 700, lineHeight: "14px" }}>
+                  {label}
+                </span>
+              </div>
+              <p className="text-h6" style={{ color: dark ? "#ffffff" : "#080e1a" }}>
+                {label}
+              </p>
+              <p className="mt-1 text-xs leading-4" style={{ color: dark ? "#ffffff" : "#9ca3af" }}>
+                {address}
+              </p>
+              <p className="mt-0.5 text-xs leading-4" style={{ color: dark ? "#ffffff" : "#9ca3af" }}>
+                {cityState}
+              </p>
+            </div>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onMenu(e)
+              }}
+              className="shrink-0 p-1"
+            >
+              <MoreVertical className="size-4" style={{ color: dark ? "rgba(255,255,255,0.72)" : "#9ca3af" }} strokeWidth={2} />
+            </button>
+          </div>
+        </GlassSurface>
+      </div>
+    )
+  }
+
   return (
     <div
       className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 transition-shadow duration-200"
@@ -456,9 +636,40 @@ interface PriceSummaryRowProps {
   emphasized?: boolean
   label: string
   value: string
+  dark?: boolean
+  variant?: "default" | "step3Glass"
 }
 
-export function PriceSummaryRow({ emphasized, label, value }: PriceSummaryRowProps) {
+export function PriceSummaryRow({ emphasized, label, value, dark = false, variant = "default" }: PriceSummaryRowProps) {
+  if (variant === "step3Glass") {
+    return (
+      <div className="flex items-center justify-between gap-3">
+        <span
+          style={{
+            color: dark ? "#ffffff" : "var(--c-tx1)",
+            fontSize: emphasized ? "17px" : "15px",
+            fontWeight: emphasized ? 700 : 500,
+            lineHeight: emphasized ? "22px" : "20px",
+          }}
+        >
+          {label}
+        </span>
+        <GlassSurface dark={dark} radius={10} padding="6px 12px" className="shrink-0">
+          <span
+            style={{
+              color: dark ? "#ffffff" : "#080e1a",
+              fontSize: emphasized ? "20px" : "15px",
+              fontWeight: 700,
+              lineHeight: emphasized ? "26px" : "20px",
+            }}
+          >
+            {value}
+          </span>
+        </GlassSurface>
+      </div>
+    )
+  }
+
   return (
     <div className="flex items-center justify-between gap-3">
       <span

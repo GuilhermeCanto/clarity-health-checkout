@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { ChevronLeft, Heart, ShieldCheck, Sun, Moon } from "lucide-react"
+import { ChevronLeft, ShieldCheck, Sun, Moon } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 import { StatusBar } from "@/components/checkout/status-bar"
@@ -13,9 +13,12 @@ import { DoctorCard } from "@/components/checkout/doctor-card"
 import { SpecsTable } from "@/components/checkout/specs-table"
 import { Divider } from "@/components/checkout/divider"
 import { BottomBar } from "@/components/checkout/bottom-bar"
+import { useHeaderScrolled } from "@/components/checkout/use-header-scrolled"
 import { PLANS, DOSAGE_OPTIONS, STRENGTH_OPTIONS, SPECS, DOCTOR } from "@/lib/tokens"
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number]
+const STEP3_ARCH_CLIP_PATH =
+  "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -26,16 +29,33 @@ const fadeUp = {
   }),
 }
 
+function getCustomPrice(duration: string, strength: string) {
+  if (duration === "1-4 weeks" && strength === "0.25mg") return 199
+  if (duration === "1-4 weeks" && strength === "0.5mg") return 219
+  if (duration === "1-4 weeks" && strength === "1mg") return 249
+  if (duration === "5-8 weeks" && strength === "0.25mg") return 209
+  if (duration === "5-8 weeks" && strength === "0.5mg") return 229
+  if (duration === "5-8 weeks" && strength === "1mg") return 259
+  if (duration === "9+ weeks" && strength === "0.25mg") return 229
+  if (duration === "9+ weeks" && strength === "0.5mg") return 249
+  return 279
+}
+
 export default function Step1Page() {
   const router = useRouter()
-  const [selectedPlan, setSelectedPlan] = useState("starter")
   const [selectedDosage, setSelectedDosage] = useState("1-4 weeks")
   const [selectedStrength, setSelectedStrength] = useState("0.25mg")
   const [quantity, setQuantity] = useState(1)
-  const [wishlisted, setWishlisted] = useState(false)
   const [isDark, setIsDark] = useState(false)
-
-  const activePlan = PLANS.find((p) => p.id === selectedPlan) ?? PLANS[0]
+  const headerScrolled = useHeaderScrolled()
+  const archGlassInset = "0px"
+  const archGlassInnerInset = "2px"
+  const selectedPlan = PLANS.find(
+    (plan) =>
+      plan.duration === selectedDosage &&
+      plan.dose.replace(/\s+/g, "") === selectedStrength
+  )
+  const currentPrice = selectedPlan?.price ?? getCustomPrice(selectedDosage, selectedStrength)
 
   return (
     <div className={["relative min-h-screen font-sans bg-page", isDark ? "dark" : ""].join(" ")}>
@@ -47,17 +67,27 @@ export default function Step1Page() {
           className="pointer-events-auto"
           style={{
             background: "var(--c-header-blur)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
-            maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
+            WebkitMaskImage: headerScrolled ? "none" : "linear-gradient(to bottom, black 60%, transparent 100%)",
+            maskImage: headerScrolled ? "none" : "linear-gradient(to bottom, black 60%, transparent 100%)",
           }}
         >
           <StatusBar />
         </div>
 
         {/* Controllers row */}
-        <div className="flex items-center justify-between px-4 pointer-events-auto">
+        <div
+          className="pointer-events-auto px-4 transition-all duration-200"
+          style={{
+            background: headerScrolled ? "var(--c-header-blur)" : "transparent",
+            backdropFilter: headerScrolled ? "blur(5px)" : "none",
+            WebkitBackdropFilter: headerScrolled ? "blur(5px)" : "none",
+            WebkitMaskImage: headerScrolled ? "linear-gradient(to bottom, black 0%, black 62%, transparent 100%)" : "none",
+            maskImage: headerScrolled ? "linear-gradient(to bottom, black 0%, black 62%, transparent 100%)" : "none",
+          }}
+        >
+          <div className="flex items-center justify-between">
           {/* Back button */}
           <motion.button
             initial={{ opacity: 0, x: -12 }}
@@ -74,10 +104,12 @@ export default function Step1Page() {
             <ChevronLeft className="size-5" style={{ color: "var(--c-tx1)" }} strokeWidth={2} />
           </motion.button>
 
+          <div className="size-12" />
+
           {/* Theme toggle */}
           <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
             onClick={() => setIsDark((v) => !v)}
             className="size-12 rounded-full glass-rim flex items-center justify-center"
@@ -92,26 +124,7 @@ export default function Step1Page() {
               : <Moon className="size-5" style={{ color: "var(--c-tx1)" }} strokeWidth={2} />
             }
           </motion.button>
-
-          {/* Wishlist button */}
-          <motion.button
-            initial={{ opacity: 0, x: 12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setWishlisted((v) => !v)}
-            className="size-12 rounded-full glass-rim flex items-center justify-center"
-            style={{
-              background: "rgba(255, 255, 255, 0.10)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-            }}
-          >
-            <Heart
-              className={["size-5 transition-colors", wishlisted ? "fill-rose-500 text-rose-500" : ""].join(" ")}
-              style={wishlisted ? {} : { color: "var(--c-tx1)" }}
-              strokeWidth={2}
-            />
-          </motion.button>
+          </div>
         </div>
       </div>
 
@@ -139,18 +152,50 @@ export default function Step1Page() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
           className="relative"
-          style={{
-            clipPath: "path('M 183,0 C 233,0 273,22 273,48 L 338,48 Q 366,48 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,48 28,48 L 93,48 C 93,22 133,0 183,0 Z')",
-          }}
         >
-          {/* Glass layer */}
           <div
             className="absolute inset-0"
             style={{
-              background: "var(--glass-liquid-bg)",
-              backdropFilter: "blur(var(--glass-liquid-blur))",
-              WebkitBackdropFilter: "blur(var(--glass-liquid-blur))",
-              boxShadow: "var(--glass-liquid-shadow)",
+              inset: archGlassInset,
+              clipPath: STEP3_ARCH_CLIP_PATH,
+              background: isDark
+                ? "linear-gradient(135deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.08) 22%, rgba(255,255,255,0.05) 56%, rgba(255,255,255,0.025) 100%)"
+                : "linear-gradient(135deg, rgba(196,181,253,0.01), rgba(196,181,253,0.24))",
+              boxShadow: isDark
+                ? "0 10px 30px rgba(0,0,0,0.24)"
+                : "0 12px 28px rgba(15,23,42,0.10)",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              inset: archGlassInnerInset,
+              clipPath: STEP3_ARCH_CLIP_PATH,
+              background: isDark
+                ? "linear-gradient(135deg, rgba(214,220,230,0.004), rgba(248,250,252,0.00075))"
+                : "linear-gradient(135deg, rgba(196,181,253,0.12), rgba(196,181,253,0.08))",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              inset: archGlassInnerInset,
+              clipPath: STEP3_ARCH_CLIP_PATH,
+              backdropFilter: "blur(1px)",
+              WebkitBackdropFilter: "blur(1px)",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              inset: archGlassInnerInset,
+              clipPath: STEP3_ARCH_CLIP_PATH,
+              background: isDark
+                ? "linear-gradient(135deg, rgba(214,220,230,0.005) 0%, rgba(248,250,252,0.00075) 42%, transparent 100%)"
+                : "linear-gradient(135deg, rgba(196,181,253,0.16) 0%, rgba(196,181,253,0.08) 42%, transparent 100%)",
+              opacity: isDark ? 0.04 : 0.78,
             }}
           />
 
@@ -209,7 +254,17 @@ export default function Step1Page() {
 
             {/* Plan selector */}
             <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible">
-              <PlanSelector plans={PLANS} selected={selectedPlan} onChange={setSelectedPlan} />
+              <PlanSelector
+                plans={PLANS}
+                selected={selectedPlan?.id ?? null}
+                onChange={(planId) => {
+                  const plan = PLANS.find((p) => p.id === planId)
+                  if (!plan) return
+                  setSelectedDosage(plan.duration)
+                  setSelectedStrength(plan.dose.replace(/\s+/g, ""))
+                }}
+                useGlassCheckbox
+              />
             </motion.div>
 
             {/* Custom section */}
@@ -238,7 +293,7 @@ export default function Step1Page() {
             {/* Doctor */}
             <motion.div custom={8} variants={fadeUp} initial="hidden" animate="visible">
               <h2 className="text-h6 mb-2" style={{ color: "var(--c-tx1)" }}>Your Doctor</h2>
-              <DoctorCard name={DOCTOR.name} specialty={DOCTOR.specialty} />
+              <DoctorCard dark={isDark} name={DOCTOR.name} specialty={DOCTOR.specialty} />
             </motion.div>
 
             {/* Divider */}
@@ -257,7 +312,7 @@ export default function Step1Page() {
 
       {/* ── Sticky bottom action bar ─────────────────── */}
       <BottomBar
-        price={activePlan.price}
+        price={currentPrice}
         quantity={quantity}
         onDecrement={() => setQuantity((q) => Math.max(1, q - 1))}
         onIncrement={() => setQuantity((q) => q + 1)}

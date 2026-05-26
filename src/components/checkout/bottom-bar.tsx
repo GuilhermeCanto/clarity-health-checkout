@@ -11,9 +11,6 @@ interface BottomBarProps {
   onAddToCart: () => void
 }
 
-const innerBtnShadow =
-  "0px 0px 2px 2px rgba(120, 120, 120, 0.25), inset 2px 2px 1px 0px rgba(255, 255, 255, 0.45)"
-
 export function BottomBar({
   price,
   quantity,
@@ -45,7 +42,7 @@ export function BottomBar({
             style={{
               padding: "4px 4px",
               borderRadius: "9999px",
-              background: "var(--c-cell-bg)",
+              background: "var(--c-bar-quantity-bg)",
               boxShadow: "var(--c-bar-glow)",
               backdropFilter: "blur(80px)",
               WebkitBackdropFilter: "blur(80px)",
@@ -62,7 +59,7 @@ export function BottomBar({
                 height: "46px",
                 borderRadius: "9999px",
                 background: "var(--c-minus-btn)",
-                boxShadow: innerBtnShadow,
+                boxShadow: "var(--c-cta-inner-shadow)",
               }}
             >
               <Minus className="size-[18px] text-brand" strokeWidth={2.5} />
@@ -86,7 +83,7 @@ export function BottomBar({
                 height: "46px",
                 borderRadius: "9999px",
                 background: "#8B5CF6",
-                boxShadow: innerBtnShadow,
+                boxShadow: "var(--c-cta-inner-shadow)",
               }}
             >
               <Plus className="size-[18px] text-white" strokeWidth={2.5} />
@@ -95,27 +92,29 @@ export function BottomBar({
 
           {/* ── Buy Button ───────────────────────────────── */}
           <div
-            className="flex-1 glass-rim"
+            className="relative flex-1"
             style={{
               padding: "4px",
               borderRadius: "9999px",
-              background: "var(--c-cell-bg)",
-              boxShadow: "var(--c-bar-glow)",
-              backdropFilter: "blur(80px)",
-              WebkitBackdropFilter: "blur(80px)",
+              background: "var(--c-cta-shell-bg)",
+              border: "var(--c-cta-shell-border)",
+              boxShadow: "var(--c-cta-shell-shadow)",
+              backdropFilter: "var(--c-cta-shell-filter)",
+              WebkitBackdropFilter: "var(--c-cta-shell-filter)",
             }}
           >
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={onAddToCart}
-              className="w-full flex items-center justify-center glass-rim"
+              className="w-full flex items-center justify-center"
               style={{
                 gap: "16px",
                 padding: "0 16px",
                 height: "46px",
                 borderRadius: "9999px",
                 background: "#8B5CF6",
-                boxShadow: innerBtnShadow,
+                border: "var(--c-cta-border)",
+                boxShadow: "var(--c-cta-inner-shadow)",
               }}
             >
               <span style={{ fontSize: "15px", fontWeight: 600, lineHeight: "20px", color: "#FFFFFF", whiteSpace: "nowrap" }}>
