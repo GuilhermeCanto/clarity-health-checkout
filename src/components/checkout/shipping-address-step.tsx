@@ -191,7 +191,7 @@ export function ShippingAddressStep({
               background: useStep3Glass
                 ? dark
                   ? "linear-gradient(315deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.08) 22%, rgba(255,255,255,0.05) 56%, rgba(255,255,255,0.025) 100%)"
-                  : "linear-gradient(315deg, rgba(196,181,253,0.01), rgba(196,181,253,0.24))"
+                  : "linear-gradient(315deg, rgb(var(--theme-accent-soft-rgb) / 0.01), rgb(var(--theme-accent-soft-rgb) / 0.24))"
                 : "var(--glass-liquid-bg)",
               boxShadow: useStep3Glass
                 ? dark
@@ -210,7 +210,7 @@ export function ShippingAddressStep({
                   clipPath: "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')",
                   background: dark
                     ? "linear-gradient(315deg, rgba(214,220,230,0.004), rgba(248,250,252,0.00075))"
-                    : "linear-gradient(315deg, rgba(196,181,253,0.12), rgba(196,181,253,0.08))",
+                    : "linear-gradient(315deg, rgb(var(--theme-accent-soft-rgb) / 0.12), rgb(var(--theme-accent-soft-rgb) / 0.08))",
                   backdropFilter: "blur(20px)",
                   WebkitBackdropFilter: "blur(20px)",
                 }}
@@ -233,7 +233,7 @@ export function ShippingAddressStep({
                   clipPath: "path('M 183,0 C 220,0 250,12 250,28 L 324,28 Q 366,28 366,76 L 366,4000 Q 366,4028 338,4028 L 28,4028 Q 0,4028 0,4000 L 0,76 Q 0,28 42,28 L 116,28 C 116,12 146,0 183,0 Z')",
                   background: dark
                     ? "linear-gradient(315deg, rgba(214,220,230,0.005) 0%, rgba(248,250,252,0.00075) 42%, transparent 100%)"
-                    : "linear-gradient(315deg, rgba(196,181,253,0.16) 0%, rgba(196,181,253,0.08) 42%, transparent 100%)",
+                    : "linear-gradient(315deg, rgb(var(--theme-accent-soft-rgb) / 0.16) 0%, rgb(var(--theme-accent-soft-rgb) / 0.08) 42%, transparent 100%)",
                   opacity: dark ? 0.04 : 0.78,
                 }}
               />
@@ -393,7 +393,7 @@ export function ShippingAddressStep({
                           type="submit"
                           className="glass-rim mt-1 w-full rounded-xl py-3"
                           style={{
-                            background: "#8B5CF6",
+                            background: "var(--brand-primary)",
                             color: "#FFFFFF",
                             fontSize: "14px",
                             fontWeight: 700,

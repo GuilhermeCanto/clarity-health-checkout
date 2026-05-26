@@ -104,14 +104,14 @@ export function AddressCard({
       onClick={onClick}
       className="flex w-full items-start gap-4 rounded-xl px-4 py-4 text-left transition-shadow duration-200"
       style={{
-        background: selected ? "#8B5CF6" : "var(--c-cell-bg)",
+        background: selected ? "var(--brand-primary)" : "var(--c-cell-bg)",
         boxShadow: selected ? "var(--c-sel-glow)" : "var(--c-unsel-shadow)",
       }}
     >
       <div
         className="glass-rim flex size-[30px] shrink-0 items-center justify-center rounded-[8px]"
         style={{
-          background: selected ? "#DDD6FE" : "var(--c-checkbox-bg)",
+          background: selected ? "rgb(var(--theme-accent-pale-rgb) / 0.92)" : "var(--c-checkbox-bg)",
           boxShadow: selected ? "none" : "var(--c-checkbox-shadow)",
         }}
       >
@@ -123,7 +123,7 @@ export function AddressCard({
           <span
             className="rounded-full px-2 py-0.5"
             style={{
-              background: selected ? "rgba(255,255,255,0.18)" : "rgba(139,92,246,0.14)",
+              background: selected ? "rgba(255,255,255,0.18)" : "rgb(var(--theme-accent-rgb) / 0.14)",
               color: selected ? "#FFFFFF" : "var(--c-tx1)",
               fontSize: "11px",
               fontWeight: 700,
@@ -299,7 +299,7 @@ export function MiniMap({ onAdd }: MiniMapProps) {
         style={{
           minHeight: "148px",
           background:
-            "radial-gradient(circle at 22% 18%, rgba(255,255,255,0.55), transparent 24%), linear-gradient(135deg, rgba(139,92,246,0.24), rgba(255,255,255,0.10) 58%, rgba(167,139,250,0.34))",
+            "radial-gradient(circle at 22% 18%, rgba(255,255,255,0.55), transparent 24%), linear-gradient(135deg, rgb(var(--theme-accent-rgb) / 0.24), rgba(255,255,255,0.10) 58%, rgb(var(--theme-accent-glow-rgb) / 0.34))",
           boxShadow: "var(--c-unsel-shadow)",
         }}
       >
@@ -357,10 +357,10 @@ export function CurrentLocationCard({ address, cityState, dark, variant = "defau
             <div
               className="absolute inset-0 rounded-[4px]"
               style={{
-                background: "#8b5cf6",
+                background: "var(--brand-primary)",
                 boxShadow: dark
-                  ? "0px 0px 6px 2px rgba(196,181,253,0.14)"
-                  : "0px 0px 6px 2px rgba(196,181,253,0.28)",
+                  ? "0px 0px 6px 2px rgb(var(--theme-accent-soft-rgb) / 0.14)"
+                  : "0px 0px 6px 2px rgb(var(--theme-accent-soft-rgb) / 0.28)",
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -384,8 +384,8 @@ export function CurrentLocationCard({ address, cityState, dark, variant = "defau
               <span
                 className="flex h-[16px] shrink-0 items-center justify-center rounded-full border border-white px-2"
                 style={{
-                  background: "#ede9fe",
-                  color: "#8b5cf6",
+                  background: "rgb(var(--theme-accent-pale-rgb) / 0.95)",
+                  color: "var(--brand-primary)",
                   fontSize: "9px",
                   fontWeight: 600,
                   lineHeight: "9px",
@@ -488,8 +488,8 @@ export function CurrentLocationCard({ address, cityState, dark, variant = "defau
             style={{
               width: 30,
               height: 30,
-              background: "#8B5CF6",
-              boxShadow: "0 2px 8px rgba(139,92,246,0.45)",
+              background: "var(--brand-primary)",
+              boxShadow: "0 2px 8px rgb(var(--theme-accent-rgb) / 0.45)",
             }}
           >
             <Home className="size-[15px] text-white" strokeWidth={1.8} />
@@ -533,9 +533,9 @@ export function SavedAddressItem({
               style={{
                 width: 30,
                 height: 30,
-                background: selected ? "#DDD6FE" : dark ? "rgba(255,255,255,0.08)" : "rgba(196,181,253,0.08)",
-                boxShadow: selected ? "none" : "0 2px 8px rgba(139,92,246,0.18)",
-                border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgba(196,181,253,0.16)",
+                background: selected ? "rgb(var(--theme-accent-pale-rgb) / 0.92)" : dark ? "rgba(255,255,255,0.08)" : "rgb(var(--theme-accent-soft-rgb) / 0.08)",
+                boxShadow: selected ? "none" : "0 2px 8px rgb(var(--theme-accent-rgb) / 0.18)",
+                border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgb(var(--theme-accent-soft-rgb) / 0.16)",
               }}
             >
               {selected && <Check className="size-3.5 text-brand" strokeWidth={3} />}
@@ -543,7 +543,7 @@ export function SavedAddressItem({
 
             <div className="min-w-0 flex-1">
               <div className="mb-1.5 flex items-center gap-2">
-                <span className="rounded-full px-2 py-0.5" style={{ background: "#ede9fe", color: "#8B5CF6", fontSize: "11px", fontWeight: 700, lineHeight: "14px" }}>
+                <span className="rounded-full px-2 py-0.5" style={{ background: "rgb(var(--theme-accent-pale-rgb) / 0.95)", color: "var(--brand-primary)", fontSize: "11px", fontWeight: 700, lineHeight: "14px" }}>
                   {label}
                 </span>
               </div>
@@ -577,7 +577,7 @@ export function SavedAddressItem({
     <div
       className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 transition-shadow duration-200"
       style={{
-        background: selected ? "#8B5CF6" : "var(--c-cell-bg)",
+        background: selected ? "var(--brand-primary)" : "var(--c-cell-bg)",
         boxShadow: selected ? "var(--c-sel-glow)" : "var(--c-unsel-shadow)",
         cursor: "pointer",
       }}
@@ -589,9 +589,9 @@ export function SavedAddressItem({
         style={{
           width: 30,
           height: 30,
-          background: selected ? "#DDD6FE" : "var(--c-checkbox-bg)",
+          background: selected ? "rgb(var(--theme-accent-pale-rgb) / 0.92)" : "var(--c-checkbox-bg)",
           boxShadow: selected ? "none" : "var(--c-checkbox-shadow)",
-          border: selected ? "none" : "1.5px solid rgba(196, 181, 253, 0.35)",
+          border: selected ? "none" : "1.5px solid rgb(var(--theme-accent-soft-rgb) / 0.35)",
         }}
       >
         {selected && <Check className="size-3.5 text-brand" strokeWidth={3} />}

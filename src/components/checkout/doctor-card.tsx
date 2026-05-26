@@ -33,7 +33,7 @@ export function DoctorCard({ name, specialty, imageUrl, dark = false }: DoctorCa
           borderBottomRightRadius: "34px",
           background: dark
             ? "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 44%, transparent 100%)"
-            : "linear-gradient(135deg, rgba(196,181,253,0.36) 0%, rgba(196,181,253,0.14) 44%, transparent 100%)",
+            : "linear-gradient(135deg, rgb(var(--theme-accent-soft-rgb) / 0.36) 0%, rgb(var(--theme-accent-soft-rgb) / 0.14) 44%, transparent 100%)",
           opacity: dark ? 0.55 : 0.78,
         }}
       />

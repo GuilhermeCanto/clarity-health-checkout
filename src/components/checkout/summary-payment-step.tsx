@@ -24,9 +24,10 @@ function GlassSurface({
   radius,
   padding,
   className = "",
-  lightBackground = "rgba(196,181,253,0.10)",
-  lightBorder = "1px solid rgba(196,181,253,0.14)",
-  lightShadow = "0 8px 22px rgba(15,23,42,0.07), 0 2px 7px rgba(196,181,253,0.08)",
+  lightBackground = "rgb(var(--theme-accent-soft-rgb) / 0.10)",
+  lightBorder = "1px solid rgb(var(--theme-accent-soft-rgb) / 0.14)",
+  lightBlur = "18px",
+  lightShadow = "0 8px 22px rgba(15,23,42,0.07), 0 2px 7px rgb(var(--theme-accent-soft-rgb) / 0.08)",
   children,
 }: {
   dark: boolean
@@ -35,6 +36,7 @@ function GlassSurface({
   className?: string
   lightBackground?: string
   lightBorder?: string
+  lightBlur?: string
   lightShadow?: string
   children: React.ReactNode
 }) {
@@ -46,8 +48,8 @@ function GlassSurface({
         padding,
         background: dark ? "rgba(255,255,255,0.015)" : lightBackground,
         border: dark ? "1px solid rgba(255,255,255,0.10)" : lightBorder,
-        backdropFilter: "blur(18px)",
-        WebkitBackdropFilter: "blur(18px)",
+        backdropFilter: dark ? "blur(18px)" : `blur(${lightBlur})`,
+        WebkitBackdropFilter: dark ? "blur(18px)" : `blur(${lightBlur})`,
         boxShadow: dark ? "0 6px 18px rgba(0,0,0,0.10)" : lightShadow,
       }}
     >
@@ -57,7 +59,7 @@ function GlassSurface({
           borderRadius: `${radius}px`,
           background: dark
             ? "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 44%, transparent 100%)"
-            : "linear-gradient(135deg, rgba(196,181,253,0.36) 0%, rgba(196,181,253,0.14) 44%, transparent 100%)",
+            : "linear-gradient(135deg, rgb(var(--theme-accent-soft-rgb) / 0.36) 0%, rgb(var(--theme-accent-soft-rgb) / 0.14) 44%, transparent 100%)",
           opacity: dark ? 0.55 : 0.78,
         }}
       />
@@ -77,7 +79,7 @@ function MiniCard({ dark, brand, last4 }: {
       style={{
         background: dark
           ? "linear-gradient(145deg, #232939 0%, #1d2331 48%, #2a3040 100%)"
-          : "#8b5cf6",
+          : "var(--brand-primary)",
         boxShadow: dark ? "0px 8px 28px rgba(0,0,0,0.22)" : "0px 4px 24.5px rgba(0,0,0,0.25)",
       }}
     >
@@ -119,10 +121,10 @@ function LocationCard({ dark }: { dark: boolean }) {
           <div
             className="absolute inset-0 rounded-[4px]"
             style={{
-              background: "#8b5cf6",
+              background: "var(--brand-primary)",
               boxShadow: dark
-                ? "0px 0px 6px 2px rgba(196,181,253,0.14)"
-                : "0px 0px 6px 2px rgba(196,181,253,0.28)",
+                ? "0px 0px 6px 2px rgb(var(--theme-accent-soft-rgb) / 0.14)"
+                : "0px 0px 6px 2px rgb(var(--theme-accent-soft-rgb) / 0.28)",
             }}
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -146,8 +148,8 @@ function LocationCard({ dark }: { dark: boolean }) {
             <span
               className="flex h-[16px] shrink-0 items-center justify-center rounded-full border border-white px-2"
               style={{
-                background: "#ede9fe",
-                color: "#8b5cf6",
+                background: "rgb(var(--theme-accent-pale-rgb) / 0.95)",
+                color: "var(--brand-primary)",
                 fontSize: "9px",
                 fontWeight: 600,
                 lineHeight: "9px",
@@ -191,7 +193,7 @@ function OrderSummaryCard({ dark }: { dark: boolean }) {
         {/* Divider */}
         <div
           className="h-px w-full"
-          style={{ background: dark ? "rgba(196,181,253,0.3)" : "rgba(196,181,253,0.6)" }}
+          style={{ background: dark ? "rgb(var(--theme-accent-soft-rgb) / 0.3)" : "rgb(var(--theme-accent-soft-rgb) / 0.6)" }}
         />
 
         {/* Product row */}
@@ -223,7 +225,7 @@ function OrderSummaryCard({ dark }: { dark: boolean }) {
           <button
             className="flex items-center gap-1 overflow-hidden rounded-full border border-white px-3 py-1"
             style={{
-              background: "#ede9fe",
+              background: "rgb(var(--theme-accent-pale-rgb) / 0.95)",
               boxShadow: "0px 0px 2px 2px rgba(120,120,120,0.2), inset 2px 2px 1px 0px rgba(255,255,255,0.2)",
               color: "#4b5563",
               fontSize: "8px",
@@ -354,7 +356,7 @@ export function SummaryPaymentStep({ dark = false, onToggleTheme, routePrefix }:
               clipPath: STEP3_ARCH_CLIP_PATH,
               background: dark
                 ? "linear-gradient(315deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0.08) 22%, rgba(255,255,255,0.05) 56%, rgba(255,255,255,0.025) 100%)"
-                : "linear-gradient(315deg, rgba(196,181,253,0.01), rgba(196,181,253,0.24))",
+                : "linear-gradient(315deg, rgb(var(--theme-accent-soft-rgb) / 0.01), rgb(var(--theme-accent-soft-rgb) / 0.24))",
               boxShadow: dark
                 ? "0 10px 30px rgba(0,0,0,0.24)"
                 : "0 12px 28px rgba(15,23,42,0.10)",
@@ -368,7 +370,7 @@ export function SummaryPaymentStep({ dark = false, onToggleTheme, routePrefix }:
               clipPath: STEP3_ARCH_CLIP_PATH,
               background: dark
                 ? "linear-gradient(315deg, rgba(214,220,230,0.004), rgba(248,250,252,0.00075))"
-                : "linear-gradient(315deg, rgba(196,181,253,0.12), rgba(196,181,253,0.08))",
+                : "linear-gradient(315deg, rgb(var(--theme-accent-soft-rgb) / 0.12), rgb(var(--theme-accent-soft-rgb) / 0.08))",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
             }}
@@ -391,7 +393,7 @@ export function SummaryPaymentStep({ dark = false, onToggleTheme, routePrefix }:
               clipPath: STEP3_ARCH_CLIP_PATH,
               background: dark
                 ? "linear-gradient(315deg, rgba(214,220,230,0.005) 0%, rgba(248,250,252,0.00075) 42%, transparent 100%)"
-                : "linear-gradient(315deg, rgba(196,181,253,0.16) 0%, rgba(196,181,253,0.08) 42%, transparent 100%)",
+                : "linear-gradient(315deg, rgb(var(--theme-accent-soft-rgb) / 0.16) 0%, rgb(var(--theme-accent-soft-rgb) / 0.08) 42%, transparent 100%)",
               opacity: dark ? 0.04 : 0.78,
             }}
           />
@@ -464,7 +466,7 @@ export function SummaryPaymentStep({ dark = false, onToggleTheme, routePrefix }:
       {/* Swipe indicator */}
       <div
         className="fixed bottom-2 left-1/2 z-50 h-1 w-9 -translate-x-1/2 rounded-full"
-        style={{ background: "rgba(196,181,253,0.5)" }}
+        style={{ background: "rgb(var(--theme-accent-soft-rgb) / 0.5)" }}
       />
     </div>
   )

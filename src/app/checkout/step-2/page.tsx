@@ -1,17 +1,16 @@
 "use client"
 
-import { useState } from "react"
-
+import { useCheckoutTheme } from "@/components/checkout/checkout-theme-provider"
 import { ShippingAddressStep } from "@/components/checkout/shipping-address-step"
 
 export default function ShippingAddressPage() {
-  const [isDark, setIsDark] = useState(false)
+  const { dark: isDark, toggleDark } = useCheckoutTheme()
 
   return (
     <ShippingAddressStep
       dark={isDark}
       routePrefix="/checkout"
-      onToggleTheme={() => setIsDark((v) => !v)}
+      onToggleTheme={toggleDark}
       useStep3Glass
     />
   )

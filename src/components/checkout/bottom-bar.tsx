@@ -82,7 +82,7 @@ export function BottomBar({
                 width: "46px",
                 height: "46px",
                 borderRadius: "9999px",
-                background: "#8B5CF6",
+                background: "var(--brand-primary)",
                 boxShadow: "var(--c-cta-inner-shadow)",
               }}
             >
@@ -112,7 +112,7 @@ export function BottomBar({
                 padding: "0 16px",
                 height: "46px",
                 borderRadius: "9999px",
-                background: "#8B5CF6",
+                background: "var(--brand-primary)",
                 border: "var(--c-cta-border)",
                 boxShadow: "var(--c-cta-inner-shadow)",
               }}
