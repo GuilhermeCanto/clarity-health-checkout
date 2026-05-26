@@ -56,13 +56,13 @@ function GlassSurface({
       style={{
         borderRadius: `${radius}px`,
         padding,
-        background: dark ? "rgba(255,255,255,0.015)" : "rgb(var(--theme-accent-soft-rgb) / 0.10)",
-        border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgb(var(--theme-accent-soft-rgb) / 0.14)",
+        background: dark ? "rgba(255,255,255,0.015)" : "rgba(196,181,253,0.10)",
+        border: dark ? "1px solid rgba(255,255,255,0.10)" : "1px solid rgba(196,181,253,0.14)",
         backdropFilter: "blur(18px)",
         WebkitBackdropFilter: "blur(18px)",
         boxShadow: dark
           ? "0 6px 18px rgba(0,0,0,0.10)"
-          : "0 8px 22px rgba(15,23,42,0.07), 0 2px 7px rgb(var(--theme-accent-soft-rgb) / 0.08)",
+          : "0 8px 22px rgba(15,23,42,0.07), 0 2px 7px rgba(196,181,253,0.08)",
       }}
     >
       <div
@@ -71,7 +71,7 @@ function GlassSurface({
           borderRadius: `${radius}px`,
           background: dark
             ? "linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.012) 44%, transparent 100%)"
-            : "linear-gradient(135deg, rgb(var(--theme-accent-soft-rgb) / 0.36) 0%, rgb(var(--theme-accent-soft-rgb) / 0.14) 44%, transparent 100%)",
+            : "linear-gradient(135deg, rgba(196,181,253,0.36) 0%, rgba(196,181,253,0.14) 44%, transparent 100%)",
           opacity: dark ? 0.55 : 0.78,
         }}
       />
