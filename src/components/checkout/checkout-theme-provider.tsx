@@ -263,7 +263,7 @@ export function CheckoutThemeProvider({ children }: { children: ReactNode }) {
     if (typeof window === "undefined") return "violet"
 
     const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY) as CheckoutThemeId | null
-    return CHECKOUT_THEMES.some((theme) => theme.id === savedTheme) ? savedTheme : "violet"
+    return savedTheme && CHECKOUT_THEMES.some((theme) => theme.id === savedTheme) ? savedTheme : "violet"
   })
 
   useEffect(() => {
